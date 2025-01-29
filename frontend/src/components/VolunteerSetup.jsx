@@ -19,7 +19,7 @@ const VolunteerSetup = () => {
     });
     if (response.success) {
       alert("Volunteer setup completed!");
-      navigate("/volunteer/dashboard");
+      navigate("/");
     } else {
       alert("Failed to complete setup. Please try again.");
     }

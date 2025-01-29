@@ -15,7 +15,7 @@ const DonorSetup = () => {
     });
     if (response.success) {
       alert("Donor setup completed!");
-      navigate("/donor/dashboard");
+      navigate("/");
     } else {
       alert("Failed to complete setup. Please try again.");
     }

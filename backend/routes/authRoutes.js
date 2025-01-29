@@ -21,11 +21,11 @@ router.get(
       // Redirect based on role if already set
       switch (req.user.role) {
         case "NGO":
-          return res.redirect("http://localhost:5173/ngo/dashboard");
+          return res.redirect("http://localhost:5173/");
         case "Volunteer":
-          return res.redirect("http://localhost:5173/volunteer/dashboard");
+          return res.redirect("http://localhost:5173/");
         case "Donor":
-          return res.redirect("http://localhost:5173/donor/dashboard");
+          return res.redirect("http://localhost:5173/");
         default:
           return res.redirect("http://localhost:5173/dashboard");
       }

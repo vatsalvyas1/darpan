@@ -24,7 +24,7 @@ const NgoSetup = () => {
     });
     if (response.success) {
       alert("NGO setup completed!");
-      navigate("/ngo/dashboard");
+      navigate("/");
     } else {
       alert("Failed to complete setup. Please try again.");
     }
