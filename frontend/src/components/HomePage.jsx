@@ -21,7 +21,7 @@ const slides = [
 
 const HeroCarousel = () => {
   return (
-    <div className="w-full h-[500px]">
+    <div className="w-full h-[500px] rounded-lg">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
@@ -37,9 +37,9 @@ const HeroCarousel = () => {
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-[500px] object-cover"
+              className="w-full h-[500px] rounded-lg object-cover"
             />
-            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/50 flex items-center rounded-lg justify-center">
               <div className="text-center text-white px-6">
                 <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
                 <button className="bg-blue-600 text-white px-6 py-3 rounded-md text-lg font-semibold hover:bg-blue-700">

@@ -7,6 +7,7 @@ import VolunteerSetup from "./components/VolunteerSetup";
 import DonorSetup from "./components/DonorSetup";
 import Homepage from "./components/HomePage";
 import Logout from "./components/Logout";
+import FrontPage from "./components/FrontPage";
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
       <Navbar />
       <div className="flex-grow">
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<FrontPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/ngo/setup" element={<NgoSetup />} />
           <Route path="/volunteer/setup" element={<VolunteerSetup />} />
