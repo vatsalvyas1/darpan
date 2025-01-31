@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const MongoStore = require("connect-mongo"); // Import connect-mongo
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const connectDB = require("./config/db");
 const { setupNgo } = require("./controllers/ngoController");
@@ -13,23 +13,16 @@ const ngoRoutes = require("./routes/ngoRoutes");
 const volunteerRoutes = require("./routes/volunteerRoutes");
 const donorRoutes = require("./routes/donorRoutes");
 
-
-// Load environment variables
 dotenv.config();
 
-// Connect to MongoDB
 connectDB();
 
-// Passport Config
 require("./config/passportConfig");
 
-// Initialize Express app
 const app = express();
 
-// Middleware
 app.use(express.json());
 
-// Use MongoDB as session store
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -40,8 +33,8 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      secure: false, // Set to `true` if using HTTPS
-      httpOnly: true, // Prevent client-side script access to cookies
+      secure: false,
+      httpOnly: true, 
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
   })
