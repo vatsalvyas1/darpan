@@ -1,35 +1,67 @@
+import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/autoplay";
 
 const slides = [
   {
-    title: "Help visually impaired 'Singh Sir' to give shelter and education to blind girls",
-    image: "https://img.freepik.com/free-vector/social-team-helping-charity-sharing-hope_74855-6660.jpg?t=st=1738146437~exp=1738150037~hmac=e9cafaa2c399c0f51ef3ca040ca84211167e502f444ea7ac3314e4b4d2dcc8b5&w=900",
+    title: "Help Magic Bus break the cycle of poverty for tribal children through education",
+    image: "https://images.unsplash.com/photo-1524069290683-0457abfe42c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   },
   {
     title: "Support children's education in rural India",
-    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hhcml0eXxlbnwwfHwwfHx8MA%3D%3D",
+    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   },
   {
     title: "Help feed those in need",
-    image: "https://media.istockphoto.com/id/870402320/photo/a-social-worker-meeting-with-a-group-of-villagers.jpg?s=612x612&w=0&k=20&c=2JlS1vqg4pU5lCp8oiFXjVgMPlHbhrmH4wmtRJdq384=",
+    image: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   },
 ];
 
-const HeroCarousel = () => {
+function HeroCarousel() {
+  const swiperRef = React.useRef(null);
+
+  const handleMouseEnter = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.stop();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.start();
+    }
+  };
+
   return (
-    <div className="w-full h-[500px] rounded-lg">
+    <div 
+      className="w-full h-[400px] relative" 
+      onMouseEnter={handleMouseEnter} 
+      onMouseLeave={handleMouseLeave}
+    >
       <Swiper
+        ref={swiperRef}
         modules={[Navigation, Pagination, Autoplay]}
-        spaceBetween={30}
+        spaceBetween={0}
         slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
-        loop
+        navigation={true}
+        loop={true}
+        loopedSlides={slides.length}
+        rewind={false}
+        centeredSlides={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+          el: '.swiper-pagination',
+          bulletClass: 'swiper-pagination-bullet',
+          bulletActiveClass: 'swiper-pagination-bullet-active',
+        }}
         className="w-full h-full"
       >
         {slides.map((slide, index) => (
@@ -37,21 +69,28 @@ const HeroCarousel = () => {
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-[500px] rounded-lg object-cover"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50 flex items-center rounded-lg justify-center">
-              <div className="text-center text-white px-6">
-                <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
-                <button className="bg-blue-600 text-white px-6 py-3 rounded-md text-lg font-semibold hover:bg-blue-700">
-                  Donate now
-                </button>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/20 flex items-center">
+              <div className="container mx-auto px-6">
+                <div className="max-w-2xl text-white">
+                  <h2 className="text-4xl font-bold mb-6 leading-tight">
+                    {slide.title}
+                  </h2>
+                  <button className="bg-red-500 hover:bg-red-600 transition-colors text-white px-8 py-3 rounded-lg text-lg font-semibold cursor-pointer">
+                    Donate now
+                  </button>
+                </div>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+      
+      {/* Custom Pagination */}
+      <div className="swiper-pagination !bottom-4"></div>
     </div>
   );
-};
+}
 
 export default HeroCarousel;

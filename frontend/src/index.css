@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+.swiper-pagination-bullet {
+    width: 10px; /* Equivalent to w-2.5 */
+    height: 10px; /* Equivalent to h-2.5 */
+    background-color: rgba(255, 255, 255, 0.5); /* bg-white/50 */
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: white; /* bg-white */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 48px; /* Equivalent to w-12 */
+    height: 48px; /* Equivalent to h-12 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    color: white;
+    font-size: 2.25rem; /* Equivalent to text-4xl */
+    font-weight: bold;
+}
+

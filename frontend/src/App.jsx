@@ -9,6 +9,8 @@ import Homepage from "./components/HomePage";
 import Logout from "./components/Logout";
 import FrontPage from "./components/FrontPage";
 
+import OurTeam from "../pages/OurTeam";
+
 const App = () => {
   return (
     <div className="flex flex-col min-h-screen">
@@ -22,6 +24,7 @@ const App = () => {
           <Route path="/donor/setup" element={<DonorSetup />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/dashboard" element={<div>Dashboard Page</div>} />
+          <Route path= "/Team" element={<OurTeam/>} />
         </Routes>
       </div>
       <Footer />
