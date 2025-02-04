@@ -19,7 +19,6 @@ passport.use(
             name: profile.displayName,
           });
         }
-        console.log("Authenticated user:", user);
         done(null, user); 
       } catch (err) {
         console.error("Error in GoogleStrategy:", err);

@@ -7,8 +7,6 @@ const setupVolunteer = async (req, res) => {
     if (!name || !age) {
       return res.status(400).json({ success: false, error: "Name and age are required." });
     }
-
-    // Use the logged-in user's ID
     const userId = req.user._id;
 
     // Check if a Volunteer is already associated with this user

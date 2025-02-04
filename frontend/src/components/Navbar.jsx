@@ -184,6 +184,12 @@ export default function Navbar() {
             {/* Authentication Buttons */}
             {isAuthenticated ? (
               <>
+                <Link
+                  to="/profile"
+                  className="text-gray-700 hover:text-gray-900"
+                >
+                  My Profile
+                </Link>
                 <span className="text-gray-700">Welcome, {user?.name}!</span>
                 <button
                   onClick={handleLogout}
@@ -241,12 +247,20 @@ export default function Navbar() {
               Discover NGOs
             </Link>
             {isAuthenticated ? (
-              <button
-                onClick={handleLogout}
-                className="block px-3 py-2 text-gray-900 hover:bg-gray-100"
-              >
-                Logout
-              </button>
+              <>
+                <Link
+                  to="/profile"
+                  className="block px-3 py-2 text-gray-900 hover:bg-gray-100"
+                >
+                  My Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block px-3 py-2 text-gray-900 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <Link
                 to="/login"
