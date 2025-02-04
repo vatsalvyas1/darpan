@@ -1,5 +1,5 @@
 import React from 'react'
-import TiltedCard from '../src/components/TiltedCard'
+import TiltedCard from './TiltedCard'
 
 
 const OurTeam = () => {
