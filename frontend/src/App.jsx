@@ -8,8 +8,9 @@ import DonorSetup from "./components/DonorSetup";
 import Homepage from "./components/HomePage";
 import Logout from "./components/Logout";
 import FrontPage from "./components/FrontPage";
-
-import OurTeam from "../pages/OurTeam";
+import OurTeam from "./components/OurTeam";
+import CreateDonation from "./components/CreateDonation";
+import DonationDetails from "./components/DonationDetails";
 
 const App = () => {
   return (
@@ -23,7 +24,8 @@ const App = () => {
           <Route path="/volunteer/setup" element={<VolunteerSetup />} />
           <Route path="/donor/setup" element={<DonorSetup />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/dashboard" element={<div>Dashboard Page</div>} />
+          <Route path="/create-donation" element={<CreateDonation />} />
+          <Route path="/donation/:id" element={<DonationDetails />} />
           <Route path= "/Team" element={<OurTeam/>} />
         </Routes>
       </div>

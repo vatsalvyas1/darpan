@@ -49,7 +49,6 @@ function HeroCarousel() {
         slidesPerView={1}
         navigation={true}
         loop={true}
-        loopedSlides={slides.length}
         rewind={false}
         centeredSlides={true}
         autoplay={{

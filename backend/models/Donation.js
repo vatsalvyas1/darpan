@@ -69,6 +69,11 @@ const donationSchema = new mongoose.Schema({
       default: '',
     },
   },
+    videoLink: {
+      type: String,
+      trim: true,
+      default: "",
+    },
 }, {
   timestamps: true,
 });

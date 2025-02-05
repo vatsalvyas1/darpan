@@ -12,6 +12,8 @@ const cors = require("cors");
 const ngoRoutes = require("./routes/ngoRoutes");
 const volunteerRoutes = require("./routes/volunteerRoutes");
 const donorRoutes = require("./routes/donorRoutes");
+const { upload } = require("./middlewares/multerMiddleware");
+const donationRoutes = require("./routes/donationRoutes");
 
 dotenv.config();
 
@@ -53,12 +55,22 @@ app.use(
   })
 );
 
+app.post("/upload-images", upload.array("images", 5), (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ error: "No files uploaded" });
+  }
+  const imageUrls = req.files.map(file => file.path);
+
+  res.json({ imageUrls }); 
+});
+
 // Routes
 app.post("/api/ngos/setup", setupNgo);
 app.post("/api/volunteers/setup", setupVolunteer);
 app.post("/api/donors/setup", setupDonor);
 app.use(require("./routes/authRoutes"));
 app.use("/ngos", require("./routes/ngoRoutes"));
+app.use("/api/donations", donationRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
