@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HeroCarousel from "./HomePage";
 import Card from "./ExploreFundraise";
-import DonationCard from "./DonationCard";
+import DonationList from "./DonationList"; 
 import Marquee from "./Marquee";
 import VolunteerCard from "./VolunteerCard";
 
@@ -31,30 +31,18 @@ const FrontPage = () => {
   return (
     <div>
       <HeroCarousel />
-      <div className="text-center">
-        <h1 className="text-4xl font-bold p-[1.5rem] text-[#222]">Donation Events</h1>
-        <p className="font-normal flex justify-self-center max-w-[400px] text-[#666] pb-[1.5rem]">
-          Create sustained impact. Support verified projects. Get regular updates. Save tax. Cancel anytime.
-        </p>
-      </div>
-
       {/* Show loading indicator */}
       {loading ? (
         <p className="text-center text-lg">Loading donations...</p>
       ) : donations.length === 0 ? (
         <p className="text-center text-lg">No donation events available.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-          {donations.map((donation) => (
-            <DonationCard key={donation._id} {...donation} />
-          ))}
-        </div>
+        <DonationList donations={donations} /> 
       )}
 
       <Marquee />
       <VolunteerCard />
       <Card />
-      
     </div>
   );
 };

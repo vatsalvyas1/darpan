@@ -12,7 +12,7 @@ const DonationDetails = () => {
     } else if (url.includes("youtu.be/")) {
       return url.replace("youtu.be/", "www.youtube.com/embed/");
     }
-    return url; // Return as is if it's already an embed link
+    return url; 
   };
   
 
@@ -25,7 +25,7 @@ const DonationDetails = () => {
         setDonation(data);
       } catch (error) {
         console.error("Error fetching donation details:", error);
-        setDonation(null); // Explicitly set to null on failure
+        setDonation(null); 
       } finally {
         setLoading(false);
       }
