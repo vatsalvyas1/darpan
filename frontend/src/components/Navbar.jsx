@@ -180,7 +180,15 @@ export default function Navbar() {
                 </Menu.Items>
               </Transition>
             </Menu>
-
+            {/* Show "Add Donation" if user is authenticated and role is "NGO" */}
+            {isAuthenticated && user?.role === "NGO" && (
+              <Link
+                to="/create-donation"
+                className="text-gray-700 hover:text-gray-900"
+              >
+                Add Donation
+              </Link>
+            )}
             {/* Authentication Buttons */}
             {isAuthenticated ? (
               <>
@@ -246,6 +254,14 @@ export default function Navbar() {
             >
               Discover NGOs
             </Link>
+            {isAuthenticated && user?.role === "NGO" && (
+  <Link
+    to="/create-donation"
+    className="text-gray-700 hover:text-gray-900"
+  >
+    Add Donation
+  </Link>
+)}
             {isAuthenticated ? (
               <>
                 <Link
