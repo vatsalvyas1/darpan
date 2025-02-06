@@ -1,7 +1,7 @@
 import React from 'react'
 import TiltedCard from './TiltedCard'
 import archit from '../../src/assets/archit.jpg'
-
+import vatsal from '../../src/assets/vatsal.jpg'
 
 const OurTeam = () => {
     return (
@@ -15,7 +15,7 @@ const OurTeam = () => {
                 <p className='text-xl m-6 text-center w-[77rem]'>Our team consists of driven professionals with a shared commitment to fostering positive change in our communities. Each member brings a wealth of experience and a deep understanding of the nonprofit sector, ensuring that we facilitate impactful and lasting partnerships. Together, we strive to empower volunteers and support organizations in making a difference.</p>
                 <div className='flex justify-center gap-4 flex-wrap mb-10'>
                     <TiltedCard
-                        imageSrc="https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
+                        imageSrc={vatsal}
                         altText="Vatsal Vyas - Developer"
                         captionText="Vatsal Vyas- Developer"
                         containerHeight="300px"
@@ -53,7 +53,7 @@ const OurTeam = () => {
                         }
                     />
                     <TiltedCard
-                        imageSrc="https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
+                    imageSrc= {vatsal}
                         altText="Itish Sharma - Developer"
                         captionText="Itish Sharma - Developer"
                         containerHeight="300px"
@@ -74,7 +74,7 @@ const OurTeam = () => {
                     <TiltedCard
                         imageSrc="https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
                         altText="Lakshya Singh - Developer"
-                        captionText="Lakshya Singh - Developer"
+                        captionText="Lakshay Singh - Developer"
                         containerHeight="300px"
                         containerWidth="300px"
                         imageHeight="300px"
