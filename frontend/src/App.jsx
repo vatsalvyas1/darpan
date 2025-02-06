@@ -9,7 +9,7 @@ import Homepage from "./components/HomePage";
 import Logout from "./components/Logout";
 import FrontPage from "./components/FrontPage";
 
-import OurTeam from "../pages/OurTeam";
+import OurTeam from "./components/OurTeam";
 import CreateDonation from "./components/CreateDonation";
 import DonationDetails from "./components/DonationDetails";
 
