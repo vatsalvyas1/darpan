@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const donationSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -27,14 +26,14 @@ const donationSchema = new mongoose.Schema({
   },
   numberOfDonors: {
     type: Number,
-    default: 0, 
+    default: 0,
   },
   amountRaised: {
     type: Number,
     default: 0,
   },
   images: [{
-    type: String, 
+    type: String,
     trim: true,
   }],
   accountDetails: {
@@ -64,15 +63,14 @@ const donationSchema = new mongoose.Schema({
       default: '',
     },
   },
-    videoLink: {
-      type: String,
-      trim: true,
-      default: "",
-    },
+  videoLink: {
+    type: String,
+    trim: true,
+    default: "",
+  },
 }, {
   timestamps: true,
 });
-
 const Donation = mongoose.model('Donation', donationSchema);
 
 module.exports = Donation;
