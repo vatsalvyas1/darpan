@@ -106,6 +106,7 @@ const CreateDonation = () => {
         alert("Donation created successfully!");
   
         setCreatedDonation({
+          _id: result.donation._id, 
           title: formData.title,
           organizedBy: formData.organizedBy,
           images: formData.images,

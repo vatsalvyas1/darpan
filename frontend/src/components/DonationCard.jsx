@@ -16,7 +16,7 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
                 <img
                   src={images[0]} 
                   alt={title}
-                  className="w-full h-full object-cover transition-all duration-300 hover:brightness-110"
+                  className="w-full h-full object-contain transition-all duration-300 hover:brightness-110"
                 />
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
