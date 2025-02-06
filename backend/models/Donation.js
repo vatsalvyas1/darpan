@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
+
 const donationSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    unique: true,
+    trim: true,
+    default: () => uuidv4(), 
+  },
   title: {
     type: String,
     required: true,
