@@ -6,22 +6,33 @@ const DonationDetails = () => {
   const [donation, setDonation] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const getEmbedUrl = (url) => {
+    if (url.includes("youtube.com/watch?v=")) {
+      return url.replace("watch?v=", "embed/");
+    } else if (url.includes("youtu.be/")) {
+      return url.replace("youtu.be/", "www.youtube.com/embed/");
+    }
+    return url; // Return as is if it's already an embed link
+  };
+  
+
   useEffect(() => {
     const fetchDonation = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/donations/${id}`);
-        if (!response.ok) throw new Error("Failed to fetch donation details");
+        if (!response.ok) throw new Error("Donation not found");
         const data = await response.json();
         setDonation(data);
       } catch (error) {
         console.error("Error fetching donation details:", error);
+        setDonation(null); // Explicitly set to null on failure
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchDonation();
-  }, [id]);
+  }, [id]);  
 
   if (loading) return <p className="text-center text-lg">Loading...</p>;
   if (!donation) return <p className="text-center text-lg">Donation not found.</p>;
@@ -37,7 +48,7 @@ const DonationDetails = () => {
           <iframe
             width="100%"
             height="400"
-            src={donation.videoLink}
+            src={getEmbedUrl(donation.videoLink)}
             title="Donation Video"
             frameBorder="0"
             allowFullScreen

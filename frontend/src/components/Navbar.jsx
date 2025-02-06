@@ -180,15 +180,57 @@ export default function Navbar() {
                 </Menu.Items>
               </Transition>
             </Menu>
-            {/* Show "Add Donation" if user is authenticated and role is "NGO" */}
+
+            {/* Show "Add" dropdown if user is authenticated and role is "NGO" */}
             {isAuthenticated && user?.role === "NGO" && (
-              <Link
-                to="/create-donation"
-                className="text-gray-700 hover:text-gray-900"
-              >
-                Add Donation
-              </Link>
+              <Menu as="div" className="relative inline-block text-left">
+                <Menu.Button className="inline-flex items-center text-gray-700 hover:text-gray-900">
+                  Add
+                  <ChevronDownIcon className="h-5 w-5 ml-1" />
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/create-donation"
+                            className={classNames(
+                              active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                              "block px-4 py-2 text-sm"
+                            )}
+                          >
+                            Add Donation
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/create-event"
+                            className={classNames(
+                              active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                              "block px-4 py-2 text-sm"
+                            )}
+                          >
+                            Add Event
+                          </Link>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
             )}
+
             {/* Authentication Buttons */}
             {isAuthenticated ? (
               <>
@@ -255,13 +297,21 @@ export default function Navbar() {
               Discover NGOs
             </Link>
             {isAuthenticated && user?.role === "NGO" && (
-  <Link
-    to="/create-donation"
-    className="text-gray-700 hover:text-gray-900"
-  >
-    Add Donation
-  </Link>
-)}
+              <>
+                <Link
+                  to="/create-donation"
+                  className="block px-3 py-2 text-gray-900 hover:bg-gray-100"
+                >
+                  Add Donation
+                </Link>
+                <Link
+                  to="/create-event"
+                  className="block px-3 py-2 text-gray-900 hover:bg-gray-100"
+                >
+                  Add Event
+                </Link>
+              </>
+            )}
             {isAuthenticated ? (
               <>
                 <Link

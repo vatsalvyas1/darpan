@@ -17,7 +17,7 @@ const OurTeam = () => {
                     <TiltedCard
                         imageSrc={vatsal}
                         altText="Vatsal Vyas - Developer"
-                        captionText="Vatsal Vyas- Developer"
+                        captionText="Vatsal Vyas- Full Stack Developer"
                         containerHeight="300px"
                         containerWidth="300px"
                         imageHeight="300px"
@@ -29,7 +29,7 @@ const OurTeam = () => {
                         displayOverlayContent={true}
                         overlayContent={
                             <p className="tilted-card-demo-text capitalize text-white tracking-tight bg-black/40 rounded-[15px] m-[30px] mt-[1rem] px-4 py-2 font-dmSans font-black shadow-[0_5px_30px_#06060659] border-0 box-border break-words block ">
-                                Vatsal - Developer
+                                Vatsal - Project Lead
                             </p>
                         }
                     />
@@ -53,7 +53,7 @@ const OurTeam = () => {
                         }
                     />
                     <TiltedCard
-                    imageSrc= {vatsal}
+                    imageSrc= "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
                         altText="Itish Sharma - Developer"
                         captionText="Itish Sharma - Developer"
                         containerHeight="300px"
