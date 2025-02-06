@@ -3,6 +3,7 @@ import HeroCarousel from "./HomePage";
 import Card from "./ExploreFundraise";
 import DonationCard from "./DonationCard";
 import Marquee from "./Marquee";
+import VolunteerCard from "./VolunteerCard";
 
 const FrontPage = () => {
   const [donations, setDonations] = useState([]);
@@ -51,7 +52,9 @@ const FrontPage = () => {
       )}
 
       <Marquee />
+      <VolunteerCard />
       <Card />
+      
     </div>
   );
 };
