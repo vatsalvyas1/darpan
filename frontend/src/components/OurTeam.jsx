@@ -1,18 +1,21 @@
-import React from 'react'
-import TiltedCard from './TiltedCard'
-import archit from '../../src/assets/archit.jpg'
-import vatsal from '../../src/assets/vatsal.jpg'
+import React from 'react';
+import TiltedCard from './TiltedCard';
+import archit from '../../src/assets/archit.jpg';
+import vatsal from '../../src/assets/vatsal.jpg';
 
 const OurTeam = () => {
     return (
         <div className='bg-gray-100'>
-            <div >
+            <div>
                 <h3 className='text-4xl flex justify-center font-bold gap-3 mt-2.5'>
                     <span className='text-purple-500'>Meet</span>
                     <span className='text-gray-700'>Our</span>
                     Team
                 </h3>
-                <p className='text-xl m-6 text-center w-[77rem]'>Our team consists of driven professionals with a shared commitment to fostering positive change in our communities. Each member brings a wealth of experience and a deep understanding of the nonprofit sector, ensuring that we facilitate impactful and lasting partnerships. Together, we strive to empower volunteers and support organizations in making a difference.</p>
+                {/* Responsive Paragraph */}
+                <p className='text-xl mx-6 my-4 text-center md:max-w-2xl lg:max-w-4xl xl:max-w-6xl '>
+                    Our team consists of driven professionals with a shared commitment to fostering positive change in our communities. Each member brings a wealth of experience and a deep understanding of the nonprofit sector, ensuring that we facilitate impactful and lasting partnerships. Together, we strive to empower volunteers and support organizations in making a difference.
+                </p>
                 <div className='flex justify-center gap-4 flex-wrap mb-10'>
                     <TiltedCard
                         imageSrc={vatsal}
@@ -32,6 +35,7 @@ const OurTeam = () => {
                                 Vatsal - Project Lead
                             </p>
                         }
+                        mobileStyles="md:scale-100 md:rotate-0" // Disable animations on mobile
                     />
                     <TiltedCard
                         imageSrc={archit}
@@ -51,9 +55,10 @@ const OurTeam = () => {
                                 Archit - Developer
                             </p>
                         }
+                        mobileStyles="md:scale-100 md:rotate-0" // Disable animations on mobile
                     />
                     <TiltedCard
-                    imageSrc= "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
+                        imageSrc="https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
                         altText="Itish Sharma - Developer"
                         captionText="Itish Sharma - Developer"
                         containerHeight="300px"
@@ -70,6 +75,7 @@ const OurTeam = () => {
                                 Itish - Developer
                             </p>
                         }
+                        mobileStyles="md:scale-100 md:rotate-0" // Disable animations on mobile
                     />
                     <TiltedCard
                         imageSrc="https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58"
@@ -89,11 +95,12 @@ const OurTeam = () => {
                                 Lakshya - Developer
                             </p>
                         }
+                        mobileStyles="md:scale-100 md:rotate-0" // Disable animations on mobile
                     />
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default OurTeam
+export default OurTeam;
