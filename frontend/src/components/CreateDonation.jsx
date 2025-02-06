@@ -3,6 +3,7 @@ import DonationCard from "./DonationCard";
 
 const CreateDonation = () => {
   const [formData, setFormData] = useState({
+    ngoId:"",
     title: "",
     organizedBy: "",
     nameOfPerson: "",
@@ -78,6 +79,7 @@ const CreateDonation = () => {
     }
   
     const donationData = {
+      ngoId: formData.ngoId,
       title: formData.title,
       organizedBy: formData.organizedBy,
       nameOfPerson: formData.nameOfPerson,
