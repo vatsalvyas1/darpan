@@ -14,6 +14,7 @@ const volunteerRoutes = require("./routes/volunteerRoutes");
 const donorRoutes = require("./routes/donorRoutes");
 const { upload } = require("./middlewares/multerMiddleware");
 const donationRoutes = require("./routes/donationRoutes");
+const profileRoutes = require("./routes/profileRoutes");
 
 dotenv.config();
 
@@ -65,6 +66,7 @@ app.post("/upload-images", upload.array("images", 5), (req, res) => {
 });
 
 // Routes
+app.use("/api/profile", profileRoutes);
 app.post("/api/ngos/setup", setupNgo);
 app.post("/api/volunteers/setup", setupVolunteer);
 app.post("/api/donors/setup", setupDonor);

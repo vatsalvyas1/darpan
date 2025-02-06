@@ -11,6 +11,7 @@ import FrontPage from "./components/FrontPage";
 import OurTeam from "./components/OurTeam";
 import CreateDonation from "./components/CreateDonation";
 import DonationDetails from "./components/DonationDetails";
+import Profile from "./components/Profile";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/create-donation" element={<CreateDonation />} />
           <Route path="/donation/:id" element={<DonationDetails />} />
           <Route path= "/Team" element={<OurTeam/>} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
       <Footer />
