@@ -15,6 +15,7 @@ const donorRoutes = require("./routes/donorRoutes");
 const { upload } = require("./middlewares/multerMiddleware");
 const donationRoutes = require("./routes/donationRoutes");
 const profileRoutes = require("./routes/profileRoutes");
+const eventRoutes = require("./routes/eventRoutes");
 
 dotenv.config();
 
@@ -73,6 +74,7 @@ app.post("/api/donors/setup", setupDonor);
 app.use(require("./routes/authRoutes"));
 app.use("/ngos", require("./routes/ngoRoutes"));
 app.use("/api/donations", donationRoutes);
+app.use("/api/events", eventRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

@@ -7,7 +7,7 @@ const createDonation = async (req, res) => {
       return res.status(403).json({ message: "Only NGOs can create donations." });
     }
 
-    const ngoId = req.user._id; // Fetch NGO ID from the logged-in user
+    const ngoId = req.user._id; 
     const { title, organizedBy, nameOfPerson, story, donationGoal, images, accountDetails, videoLink } = req.body;
 
     if (!images || images.length === 0) {

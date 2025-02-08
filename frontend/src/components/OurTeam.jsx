@@ -12,7 +12,6 @@ const OurTeam = () => {
                     <span className='text-gray-700'>Our</span>
                     Team
                 </h3>
-                {/* Responsive Paragraph */}
                 <p className='text-xl mx-6 my-4 text-center md:max-w-2xl lg:max-w-4xl xl:max-w-6xl '>
                     Our team consists of driven professionals with a shared commitment to fostering positive change in our communities. Each member brings a wealth of experience and a deep understanding of the nonprofit sector, ensuring that we facilitate impactful and lasting partnerships. Together, we strive to empower volunteers and support organizations in making a difference.
                 </p>

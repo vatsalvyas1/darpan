@@ -31,7 +31,6 @@ const FrontPage = () => {
   return (
     <div>
       <HeroCarousel />
-      {/* Show loading indicator */}
       {loading ? (
         <p className="text-center text-lg">Loading donations...</p>
       ) : donations.length === 0 ? (

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 const eventSchema = new mongoose.Schema({
+  id: { type: String, unique: true, default: uuidv4 }, 
+  ngoId: { type: mongoose.Schema.Types.ObjectId, ref: "NGO", required: true }, 
+
       title: {
         type: String,
         required: true,
