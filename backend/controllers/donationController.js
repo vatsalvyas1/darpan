@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Donation = require("../models/Donation");
 
 const createDonation = async (req, res) => {
@@ -73,5 +74,34 @@ const getAllDonations = async (req, res) => {
     }
   };
   
-  module.exports = { createDonation, getAllDonations, getDonationById };
+
+  const getDonationbyNgoId = async (req, res) => {
+    try {
+      let { ngoId } = req.params;
+      ngoId = ngoId.trim();
+  
+      console.log("Received ngoId:", ngoId);
+  
+      const isValidObjectId = mongoose.Types.ObjectId.isValid(ngoId);
+      console.log("Is valid ObjectId:", isValidObjectId);
+  
+      if (!isValidObjectId) {
+        return res.status(400).json({ message: `Invalid NGO ID format: ${ngoId}` });
+      }
+  
+      // Check if ngoId is stored as ObjectId or String in DB
+      const donations = await Donation.find({ ngoId: new mongoose.Types.ObjectId(ngoId) });
+  
+      if (!donations || donations.length === 0) {
+        return res.status(404).json({ message: "No donations found for this NGO." });
+      }
+  
+      res.status(200).json(donations);
+    } catch (error) {
+      console.error("Error fetching donations:", error);
+      res.status(500).json({ message: "Error fetching donations" });
+    }
+  };
+  
+  module.exports = { createDonation, getAllDonations, getDonationById, getDonationbyNgoId };
   

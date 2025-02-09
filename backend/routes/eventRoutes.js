@@ -1,6 +1,6 @@
 const express = require("express");
 const { upload } = require("../middlewares/multerMiddleware");
-const { createEvent, getAllEvents, getEventById } = require("../controllers/eventController");
+const { createEvent, getAllEvents, getEventById, getEventbyNgoId } = require("../controllers/eventController");
 
 const router = express.Router();
 
@@ -12,5 +12,8 @@ router.get("/", getAllEvents);
 
 // get event by id route
 router.get("/:id", getEventById);
+
+// get event by ngoId route
+router.get("/ngo/:ngoId", getEventbyNgoId);
 
 module.exports = router;

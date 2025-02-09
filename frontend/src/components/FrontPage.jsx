@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import HeroCarousel from "./HomePage";
 import Card from "./ExploreFundraise";
-import DonationList from "./DonationList"; 
+import DonationList from "./DonationList";
 import Marquee from "./Marquee";
-import VolunteerCard from "./VolunteerCard";
+import EventList from "./EventList";  
 
 const FrontPage = () => {
   const [donations, setDonations] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState([]);
+  const [loadingDonations, setLoadingDonations] = useState(true);
+  const [loadingEvents, setLoadingEvents] = useState(true);
 
   useEffect(() => {
+    // Fetch Donations
     const fetchDonations = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/donations", {
@@ -21,27 +24,64 @@ const FrontPage = () => {
       } catch (error) {
         console.error("Error fetching donations:", error);
       } finally {
-        setLoading(false);
+        setLoadingDonations(false);
+      }
+    };
+
+    // Fetch Events
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("/api/events");
+        if (!response.ok) throw new Error("Failed to fetch events");
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoadingEvents(false);
       }
     };
 
     fetchDonations();
+    fetchEvents();
   }, []);
 
   return (
     <div>
+      {/* Hero Section */}
       <HeroCarousel />
-      {loading ? (
-        <p className="text-center text-lg">Loading donations...</p>
-      ) : donations.length === 0 ? (
-        <p className="text-center text-lg">No donation events available.</p>
-      ) : (
-        <DonationList donations={donations} /> 
-      )}
 
+      {/* Donations Section */}
+      <section className="my-8">
+        <h2 className="text-2xl font-bold text-center mb-4">Current Donations</h2>
+        {loadingDonations ? (
+          <p className="text-center text-lg">Loading donations...</p>
+        ) : donations.length === 0 ? (
+          <p className="text-center text-lg">No donation events available.</p>
+        ) : (
+          <DonationList donations={donations} />
+        )}
+      </section>
+
+      {/* Marquee Section */}
       <Marquee />
-      <VolunteerCard />
-      <Card />
+
+      {/* Volunteer Events Section */}
+<section className="my-8">
+  <h2 className="text-2xl font-bold text-center mb-4">Volunteer Opportunities</h2>
+  {loadingEvents ? (
+    <p className="text-center text-lg">Loading volunteer opportunities...</p>
+  ) : events.length === 0 ? (
+    <p className="text-center text-lg">No events available for volunteering.</p>
+  ) : (
+    <EventList events={events} /> // Pass events to EventList instead
+  )}
+</section>
+
+      {/* Explore Fundraise Section */}
+      <section className="my-8">
+        <Card />
+      </section>
     </div>
   );
 };

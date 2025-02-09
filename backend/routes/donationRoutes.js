@@ -1,6 +1,6 @@
 const express = require("express");
 const { upload } = require("../middlewares/multerMiddleware");
-const { createDonation, getAllDonations, getDonationById } = require("../controllers/donationController");
+const { createDonation, getAllDonations, getDonationById, getDonationbyNgoId } = require("../controllers/donationController");
 
 const router = express.Router();
 
@@ -12,5 +12,8 @@ router.get("/", getAllDonations);
 
 // get donation by id route
 router.get("/:id", getDonationById);
+
+// get donation by ngoId route
+router.get("/ngo/:ngoId", getDonationbyNgoId);
 
 module.exports = router;

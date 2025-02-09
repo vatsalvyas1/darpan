@@ -39,6 +39,7 @@ const createEvent = async (req, res) => {
   }
 };
 
+
 const getAllEvents = async (req, res) => {
   try {
     const events = await Event.find();
@@ -62,4 +63,14 @@ const getEventById = async (req, res) => {
   }
 };
 
-module.exports = { createEvent, getAllEvents, getEventById };
+const getEventbyNgoId = async (req, res) => {
+  try {
+    const events = await Event.find({ ngoId: req.params.ngoId });
+    res.status(200).json(events);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching events" });
+  }
+}; 
+
+module.exports = { createEvent, getAllEvents, getEventById, getEventbyNgoId };
