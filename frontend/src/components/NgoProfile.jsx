@@ -7,10 +7,9 @@ const NgoProfile = ({ profile }) => {
 
   useEffect(() => {
     if (profile && profile.ngo) {
-      // Fetch events specific to the NGO
       const fetchEvents = async () => {
         try {
-          const response = await fetch(`/api/events?ngoId=${profile.ngo._id}`);
+          const response = await fetch(`/api/events/ngo/${profile.ngo.userId}`);
           if (!response.ok) {
             throw new Error("Failed to fetch events");
           }
@@ -36,14 +35,14 @@ const NgoProfile = ({ profile }) => {
       <p><strong>Registration No:</strong> {profile.ngo.registrationNumber}</p>
 
       {/* Events Hosted by NGO */}
-{events.length > 0 ? (
-  <div className="mt-4">
-    <h3 className="text-xl font-medium">Events Hosted by You</h3>
-    <EventList events={events} /> {/* Pass events to EventList instead */}
-  </div>
-) : (
-  <p className="text-gray-500 mt-2">No events hosted yet.</p>
-)}
+      {events.length > 0 ? (
+        <div className="mt-4">
+          <h3 className="text-xl font-medium">Events Hosted by You</h3>
+          <EventList events={events} />
+        </div>
+      ) : (
+        <p className="text-gray-500 mt-2">No events hosted yet.</p>
+      )}
 
       {/* Donations Organized by NGO */}
       {profile.ngo.donations && profile.ngo.donations.length > 0 ? (
