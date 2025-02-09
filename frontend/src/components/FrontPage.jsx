@@ -53,7 +53,6 @@ const FrontPage = () => {
 
       {/* Donations Section */}
       <section className="my-8">
-        <h2 className="text-2xl font-bold text-center mb-4">Current Donations</h2>
         {loadingDonations ? (
           <p className="text-center text-lg">Loading donations...</p>
         ) : donations.length === 0 ? (
@@ -68,7 +67,6 @@ const FrontPage = () => {
 
       {/* Volunteer Events Section */}
 <section className="my-8">
-  <h2 className="text-2xl font-bold text-center mb-4">Volunteer Opportunities</h2>
   {loadingEvents ? (
     <p className="text-center text-lg">Loading volunteer opportunities...</p>
   ) : events.length === 0 ? (

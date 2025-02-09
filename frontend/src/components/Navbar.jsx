@@ -65,7 +65,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="text-3xl font-bold text-primary">
+            <Link to="/" className="text-3xl font-medium text-primary">
               Darpan
             </Link>
           </div>
@@ -74,7 +74,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-6">
             {/* Support Our Causes Dropdown */}
             <Menu as="div" className="relative inline-block  text-left">
-              <Menu.Button className="inline-flex items-center font-bold text-gray-700 hover:text-gray-900">
+              <Menu.Button className="inline-flex items-center font-medium text-gray-700 hover:text-gray-900">
                 Support Our Causes
                 <ChevronDownIcon className="h-5 w-5 ml-1" />
               </Menu.Button>
@@ -126,16 +126,16 @@ export default function Navbar() {
             </Menu>
 
             {/* Other Links */}
-            <Link to="/csr" className="text-gray-700 font-bold hover:text-gray-900">
+            <Link to="/csr" className="text-gray-700 font-medium hover:text-gray-900">
               CSR
             </Link>
-            <Link to="/ngos" className="text-gray-700 font-bold hover:text-gray-900">
+            <Link to="/ngos" className="text-gray-700 font-medium hover:text-gray-900">
               Discover NGOs
             </Link>
 
             {/* About Dropdown */}
             <Menu as="div" className="relative inline-block text-left">
-              <Menu.Button className="inline-flex items-center font-bold text-gray-700 hover:text-gray-900">
+              <Menu.Button className="inline-flex items-center font-medium text-gray-700 hover:text-gray-900">
                 About
                 <ChevronDownIcon className="h-5 w-5 ml-1" />
               </Menu.Button>
@@ -184,7 +184,7 @@ export default function Navbar() {
             {/* Show "Add" dropdown if user is authenticated and role is "NGO" */}
             {isAuthenticated && user?.role === "NGO" && (
               <Menu as="div" className="relative inline-block text-left">
-                <Menu.Button className="inline-flex font-bold items-center text-gray-700 hover:text-gray-900">
+                <Menu.Button className="inline-flex font-medium items-center text-gray-700 hover:text-gray-900">
                   Add
                   <ChevronDownIcon className="h-5 w-5 ml-1" />
                 </Menu.Button>
@@ -236,14 +236,14 @@ export default function Navbar() {
               <>
                 <Link
                   to="/profile"
-                  className="text-gray-700 font-bold hover:text-gray-900"
+                  className="text-gray-700 font-medium hover:text-gray-900"
                 >
                   My Profile
                 </Link>
                 <span className="text-gray-700">Welcome, {user?.name}!</span>
                 <button
                   onClick={handleLogout}
-                  className="text-gray-700 font-bold hover:text-gray-900"
+                  className="text-gray-700 font-medium hover:text-gray-900"
                 >
                   Logout
                 </button>
@@ -251,7 +251,7 @@ export default function Navbar() {
             ) : (
               <Link
                 to="/login"
-                className="border border-gray-300 font-bold text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50"
+                className="border border-gray-300 font-medium text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50"
               >
                 Login
               </Link>
