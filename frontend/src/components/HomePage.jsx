@@ -73,10 +73,10 @@ function HeroCarousel() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/20 flex items-center">
               <div className="container mx-auto px-6">
                 <div className="max-w-2xl text-white">
-                  <h2 className="text-4xl font-bold mb-6 leading-tight">
+                  <h2 className="text-4xl ml-12 font-bold mb-6 leading-tight">
                     {slide.title}
                   </h2>
-                  <button className="bg-red-500 hover:bg-red-600 transition-colors text-white px-8 py-3 rounded-lg text-lg font-semibold cursor-pointer">
+                  <button className="bg-red-500 ml-12 hover:bg-red-600 transition-colors text-white px-8 py-3 rounded-lg text-lg font-semibold cursor-pointer">
                     Donate now
                   </button>
                 </div>

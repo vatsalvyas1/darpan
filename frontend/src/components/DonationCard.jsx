@@ -30,7 +30,7 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
               <div className="text-white">
                 <p className="text-sm font-medium italic mb-1">Organized by: {organizedBy}</p>
-                <h2 className="text-lg font-bold">{title}</h2>
+                <h2 className="text-2xl font-bold">{title}</h2>
               </div>
             </div>
           </div>
