@@ -1,4 +1,5 @@
 const Volunteer = require("../models/Volunteer");
+const User = require("../models/User");
 
 const setupVolunteer = async (req, res) => {
   try {
@@ -7,6 +8,7 @@ const setupVolunteer = async (req, res) => {
     if (!name || !age) {
       return res.status(400).json({ success: false, error: "Name and age are required." });
     }
+
     const userId = req.user._id;
 
     // Check if a Volunteer is already associated with this user
@@ -25,6 +27,10 @@ const setupVolunteer = async (req, res) => {
     });
 
     await volunteer.save();
+
+    // Update the user's firstLogin flag to false
+    await User.findByIdAndUpdate(userId, { firstLogin: false });
+
     res.status(200).json({ success: true, message: "Volunteer setup completed." });
   } catch (error) {
     console.error("Error setting up Volunteer:", error.message);

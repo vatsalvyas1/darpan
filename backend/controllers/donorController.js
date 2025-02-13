@@ -1,4 +1,5 @@
 const Donor = require("../models/Donor");
+const User = require("../models/User");
 
 const setupDonor = async (req, res) => {
   try {
@@ -26,6 +27,10 @@ const setupDonor = async (req, res) => {
     });
 
     await donor.save();
+
+    // Update the user's firstLogin flag to false
+    await User.findByIdAndUpdate(userId, { firstLogin: false });
+
     res.status(200).json({ success: true, message: "Donor setup completed." });
   } catch (error) {
     console.error("Error setting up Donor:", error.message);

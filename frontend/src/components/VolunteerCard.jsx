@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 export default function VolunteerCard({ event }) {
+  const navigate = useNavigate(); // Get the navigate function
+
   if (!event || !event._id) return null; // Ensure valid event before rendering
 
   return (
