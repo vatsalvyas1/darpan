@@ -1,0 +1,9 @@
+Currently in Development!!!!
+
+For Backend, Add These in .env file:
+dotenv:
+MONGO_URI, PORT=5000, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET, SESSION_SECRET, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_URL
+
+For Frontend, Add This in .env file:
+dotenv:
+VITE_GOOGLE_CLIENT_ID
