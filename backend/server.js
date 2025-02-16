@@ -5,28 +5,47 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const connectDB = require("./config/db");
+const cors = require("cors");
+
+// Controllers
 const { setupNgo } = require("./controllers/ngoController");
 const { setupVolunteer } = require("./controllers/volunteerController");
 const { setupDonor } = require("./controllers/donorController");
-const cors = require("cors");
+
+// Routes
+const authRoutes = require("./routes/authRoutes");
 const ngoRoutes = require("./routes/ngoRoutes");
 const volunteerRoutes = require("./routes/volunteerRoutes");
 const donorRoutes = require("./routes/donorRoutes");
-const { upload } = require("./middlewares/multerMiddleware");
 const donationRoutes = require("./routes/donationRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const eventFormRoutes = require("./routes/eventFormRoutes");
+
+// Middleware
+const { upload } = require("./middlewares/multerMiddleware");
+const User = require("./models/User");
 
 dotenv.config();
-
 connectDB();
-
 require("./config/passportConfig");
 
 const app = express();
 
+// Middleware for parsing JSON & form data
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// CORS Configuration
+app.use(
+  cors({
+    origin: "http://localhost:5173", 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+// ✅ **Session Configuration** (Before Passport)
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -37,45 +56,48 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      secure: false,
-      httpOnly: true, 
+      secure: false, 
+      httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
   })
 );
 
+// ✅ **Initialize Passport** (After Session Middleware)
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.urlencoded({ extended: true })); 
 
-
-app.use(
-  cors({
-    origin: "http://localhost:5173", 
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-
+// ✅ **File Upload Route**
 app.post("/upload-images", upload.array("images", 5), (req, res) => {
   if (!req.files || req.files.length === 0) {
     return res.status(400).json({ error: "No files uploaded" });
   }
-  const imageUrls = req.files.map(file => file.path);
-
-  res.json({ imageUrls }); 
+  const imageUrls = req.files.map((file) => file.path);
+  res.json({ imageUrls });
 });
 
-// Routes
+// ✅ **Check Authentication Status**
+app.get("/check-auth", (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.status(200).json({ isAuthenticated: true, user: req.user });
+  }
+  res.status(200).json({ isAuthenticated: false });
+});
+
+// ✅ **All Routes**
+app.use(require("./routes/authRoutes"));
+app.use("/ngos", ngoRoutes);
+app.use("/api/volunteers", volunteerRoutes); // 🔥 **Restored volunteerRoutes**
+app.use("/api/donors", donorRoutes); // 🔥 **Restored donorRoutes**
+app.use("/api/donations", donationRoutes);
+app.use("/api/events", eventRoutes);
+app.use("/api/event-form", eventFormRoutes);
 app.use("/api/profile", profileRoutes);
+
+// ✅ **NGO, Volunteer, Donor Setup Routes**
 app.post("/api/ngos/setup", setupNgo);
 app.post("/api/volunteers/setup", setupVolunteer);
 app.post("/api/donors/setup", setupDonor);
-app.use(require("./routes/authRoutes"));
-app.use("/ngos", require("./routes/ngoRoutes"));
-app.use("/api/donations", donationRoutes);
-app.use("/api/events", eventRoutes);
-
-// Start server
+// ✅ **Start Server**
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

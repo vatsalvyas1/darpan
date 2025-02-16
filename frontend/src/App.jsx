@@ -14,6 +14,7 @@ import DonationDetails from "./components/DonationDetails";
 import Profile from "./components/Profile";
 import CreateEvent from "./components/CreateEvent";
 import EventDetails from "./components/EventDetails";
+import EventForm from "./components/EventForm";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/create-donation" element={<CreateDonation />} />
           <Route path="/create-event" element={<CreateEvent />} />
           <Route path="/donation/:id" element={<DonationDetails />} />
+          <Route path="/event-form/:id" element={<EventForm />} />
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path= "/Team" element={<OurTeam/>} />
           <Route path="/profile" element={<Profile />} />

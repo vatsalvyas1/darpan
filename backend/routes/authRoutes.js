@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const { setUserRole } = require("../controllers/authController");
 const { ensureAuthenticated } = require("../middlewares/authMiddleware");
+const User = require("../models/User");
 
 const router = express.Router();
 
@@ -18,7 +19,10 @@ router.get(
         return res.redirect("/select-role");
       }
 
-      // Redirect based on role if already set
+      // Store user ID in session
+      req.session.userId = req.user._id; 
+
+      // Redirect based on role
       switch (req.user.role) {
         case "NGO":
           return res.redirect("http://localhost:5173/");
@@ -27,7 +31,7 @@ router.get(
         case "Donor":
           return res.redirect("http://localhost:5173/");
         default:
-          return res.redirect("http://localhost:5173/dashboard");
+          return res.redirect("http://localhost:5173/");
       }
     } catch (err) {
       console.error("Error during login callback:", err);
@@ -35,6 +39,20 @@ router.get(
     }
   }
 );
+
+router.get("/me", ensureAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.userId).select("-password"); // Exclude sensitive fields
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error("Error fetching user data:", err);
+    res.status(500).json({ error: "Failed to fetch user data" });
+  }
+});
+
 
 // Render role selection page
 router.get("/select-role", ensureAuthenticated, (req, res) => {

@@ -6,8 +6,10 @@ const VolunteerProfile = ({ profile }) => {
   return (
     <div className="mt-6">
       <h3 className="text-xl font-medium">Volunteer Details</h3>
+      <p><strong>Name:</strong> {profile.volunteer.name}</p>
       <p><strong>Age:</strong> {profile.volunteer.age || "N/A"}</p>
       <p><strong>Interests:</strong> {profile.volunteer.interests?.join(", ") || "No interests listed"}</p>
+
 
       {/* Events Attended */}
       {profile.volunteer.attendedEvents?.length > 0 && (

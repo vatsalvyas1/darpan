@@ -6,6 +6,11 @@ const eventFormSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   age: { type: Number, required: true },
   mobileNumber: { type: String, required: true, trim: true },
+  gender: { 
+    type: String, 
+    enum: ["Male", "Female", "Prefer not to disclose"], 
+    required: true 
+  },
   experience: { type: String, trim: true },
   skills: { type: String, trim: true },
 }, {

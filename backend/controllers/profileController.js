@@ -13,7 +13,7 @@ exports.getProfile = async (req, res) => {
     const user = await User.findById(userId).select("-password").lean();
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    let profileData = { user };
+    let profileData = { user, role: user.role };
 
     if (user.role === "NGO") {
       const ngoProfile = await NGO.findOne({ userId }).lean();
