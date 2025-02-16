@@ -13,7 +13,7 @@ export default function EventList({ events = [], title = "Upcoming Events" }) {
     <div className="px-4 md:px-0">
       {/* Section Title */}
       <h3 className="text-4xl font-bold text-center p-[1.5rem] text-[#222]">{title}</h3>
-      <p className="font-normal text-[#666] pb-[1.5rem] px-4 md:px-10 text-center">
+      <p className="font-normal  text-[#666] pb-[1.5rem] px-4 md:px-10 text-center">
         Join us in making a difference by enrolling as a volunteer for our upcoming events! 
         Your time and effort can bring positive change to those in need.
       </p>
