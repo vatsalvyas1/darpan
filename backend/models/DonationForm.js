@@ -14,7 +14,7 @@ const donationFormSchema = new mongoose.Schema({
   donationAmount: {
     type: Number,
     required: true,
-    default: 100, 
+    default: 500, 
     min: [10, "Donation amount must be at least ₹10"], 
   },
   tipAmount: {
