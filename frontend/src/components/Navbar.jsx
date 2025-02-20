@@ -3,6 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -166,7 +167,7 @@ export default function Navbar() {
                     <Menu.Item>
                       {({ active }) => (
                         <Link
-                          to="/Team"
+                          to="/team"
                           className={classNames(
                             active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                             "block px-4 py-2 text-sm"

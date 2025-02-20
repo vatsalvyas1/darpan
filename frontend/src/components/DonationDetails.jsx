@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Heart, Share2, Calendar, Clock, Users, Target } from "lucide-react";
 
 const DonationDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [donation, setDonation] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [isDonor, setIsDonor] = useState(false);
+  const [donationAmount, setDonationAmount] = useState(0); 
 
   const getEmbedUrl = (url) => {
     if (url.includes("youtube.com/watch?v=")) {
@@ -30,9 +33,9 @@ const DonationDetails = () => {
         setLoading(false);
       }
     };
-
+  
     fetchDonation();
-  }, [id]);
+  }, [id]);  
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 to-gray-50">
@@ -145,16 +148,28 @@ const DonationDetails = () => {
           </div>
         </div>
 
-        {/* Video Section */}
-        {donation.videoLink && (
-          <div className="relative pt-[56.25%] rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300">
-            <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src={getEmbedUrl(donation.videoLink)}
-              title="Donation Video"
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
+      {/* Video Section */}
+      {donation.videoLink ? (
+        <div className="mt-4">
+          <iframe
+            width="100%"
+            height="400"
+            src={getEmbedUrl(donation.videoLink)}
+            title="Donation Video"
+            frameBorder="0"
+            allowFullScreen
+            className="rounded-lg shadow-lg"
+          ></iframe>
+        </div>
+      ) : null}
+
+      {/* Image Section */}
+      <div className="mt-6">
+        {donation.images.length > 0 ? (
+          <img src={donation.images[0]} alt={donation.title} className="w-full h-auto rounded-lg shadow-md" />
+        ) : (
+          <div className="w-full h-[300px] bg-gray-300 flex items-center justify-center text-gray-500">
+            No Image Available
           </div>
         )}
 
@@ -192,6 +207,29 @@ const DonationDetails = () => {
           </button>
         </div>
       </div>
+
+      {/* Donation Message or Donate Now Button */}
+      <div className="mt-6 flex justify-center">
+  {user?.role === "Donor" && isDonor && donationAmount > 0 ? (
+    <p className="text-lg text-green-600 font-semibold">
+      Thanks for donating ₹{donationAmount}! Want to donate more?
+      <button
+        onClick={() => navigate(`/donation-form/${id}`)}
+        className="ml-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+      >
+        Donate Again
+      </button>
+    </p>
+  ) : user?.role === "Donor" ? (
+    <button
+      onClick={() => navigate(`/donation-form/${id}`)}
+      className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-blue-700"
+    >
+      Donate Now
+    </button>
+  ) : null}
+</div>
+
     </div>
   );
 };
