@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const DonationDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [donation, setDonation] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [isDonor, setIsDonor] = useState(false);
+  const [donationAmount, setDonationAmount] = useState(0); 
 
   const getEmbedUrl = (url) => {
     if (url.includes("youtube.com/watch?v=")) {
@@ -14,7 +18,6 @@ const DonationDetails = () => {
     }
     return url; 
   };
-  
 
   useEffect(() => {
     const fetchDonation = async () => {
@@ -25,14 +28,38 @@ const DonationDetails = () => {
         setDonation(data);
       } catch (error) {
         console.error("Error fetching donation details:", error);
-        setDonation(null); 
+        setDonation(null);
       } finally {
         setLoading(false);
       }
     };
-  
+
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("/api/profile", { credentials: "include" });
+        if (!response.ok) throw new Error("User not logged in");
+        const data = await response.json();
+        setUser(data);
+
+
+        // Check if the user is a donor
+        if (data.role === "Donor") {
+          const checkResponse = await fetch(`http://localhost:5000/api/donation-form/check-registration/${id}/${data.user._id}`, {
+            credentials: "include",
+          });
+
+          const checkData = await checkResponse.json();
+          setIsDonor(true);
+          setDonationAmount(checkData.donationAmount)
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
     fetchDonation();
-  }, [id]);  
+    fetchUser();
+  }, [id]);
 
   if (loading) return <p className="text-center text-lg">Loading...</p>;
   if (!donation) return <p className="text-center text-lg">Donation not found.</p>;
@@ -43,7 +70,7 @@ const DonationDetails = () => {
       <p className="text-lg text-gray-600">Campaign by {donation.organizedBy}</p>
 
       {/* Video Section */}
-      {donation.videoLink ? (
+      {donation.videoLink && (
         <div className="mt-4">
           <iframe
             width="100%"
@@ -55,7 +82,7 @@ const DonationDetails = () => {
             className="rounded-lg shadow-lg"
           ></iframe>
         </div>
-      ) : null}
+      )}
 
       {/* Image Section */}
       <div className="mt-6">
@@ -87,6 +114,29 @@ const DonationDetails = () => {
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Story</h2>
         <p className="text-gray-700">{donation.story}</p>
       </div>
+
+      {/* Donation Message or Donate Now Button */}
+      <div className="mt-6 flex justify-center">
+  {user?.role === "Donor" && isDonor && donationAmount > 0 ? (
+    <p className="text-lg text-green-600 font-semibold">
+      Thanks for donating ₹{donationAmount}! Want to donate more?
+      <button
+        onClick={() => navigate(`/donation-form/${id}`)}
+        className="ml-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700"
+      >
+        Donate Again
+      </button>
+    </p>
+  ) : user?.role === "Donor" ? (
+    <button
+      onClick={() => navigate(`/donation-form/${id}`)}
+      className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-blue-700"
+    >
+      Donate Now
+    </button>
+  ) : null}
+</div>
+
     </div>
   );
 };

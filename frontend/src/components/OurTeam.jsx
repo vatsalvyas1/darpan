@@ -94,7 +94,7 @@ const OurTeam = () => {
                                 Lakshya - Developer
                             </p>
                         }
-                        mobileStyles="md:scale-100 md:rotate-0" // Disable animations on mobile
+                        mobileStyles="md:scale-100 md:rotate-0" 
                     />
                 </div>
             </div>

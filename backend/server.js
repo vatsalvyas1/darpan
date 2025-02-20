@@ -21,6 +21,7 @@ const donationRoutes = require("./routes/donationRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const eventFormRoutes = require("./routes/eventFormRoutes");
+const donationFormRoutes = require("./routes/donationFormRoutes");
 
 // Middleware
 const { upload } = require("./middlewares/multerMiddleware");
@@ -45,7 +46,7 @@ app.use(
   })
 );
 
-// ✅ **Session Configuration** (Before Passport)
+// Session Configuration
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -63,7 +64,7 @@ app.use(
   })
 );
 
-// ✅ **Initialize Passport** (After Session Middleware)
+// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -76,7 +77,7 @@ app.post("/upload-images", upload.array("images", 5), (req, res) => {
   res.json({ imageUrls });
 });
 
-// ✅ **Check Authentication Status**
+// Check Authentication Status
 app.get("/check-auth", (req, res) => {
   if (req.isAuthenticated()) {
     return res.status(200).json({ isAuthenticated: true, user: req.user });
@@ -84,20 +85,21 @@ app.get("/check-auth", (req, res) => {
   res.status(200).json({ isAuthenticated: false });
 });
 
-// ✅ **All Routes**
+// All Routes
 app.use(require("./routes/authRoutes"));
 app.use("/ngos", ngoRoutes);
-app.use("/api/volunteers", volunteerRoutes); // 🔥 **Restored volunteerRoutes**
-app.use("/api/donors", donorRoutes); // 🔥 **Restored donorRoutes**
+app.use("/api/volunteers", volunteerRoutes);
+app.use("/api/donors", donorRoutes); 
 app.use("/api/donations", donationRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/event-form", eventFormRoutes);
+app.use("/api/donation-form", donationFormRoutes);
 app.use("/api/profile", profileRoutes);
 
 // ✅ **NGO, Volunteer, Donor Setup Routes**
 app.post("/api/ngos/setup", setupNgo);
 app.post("/api/volunteers/setup", setupVolunteer);
 app.post("/api/donors/setup", setupDonor);
-// ✅ **Start Server**
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
