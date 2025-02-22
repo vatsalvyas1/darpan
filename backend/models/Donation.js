@@ -20,6 +20,7 @@ const donationSchema = new mongoose.Schema({
     upiId: { type: String, trim: true, default: '' },
   },
   videoLink: { type: String, trim: true, default: "" },
+  donors: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 }, { timestamps: true });
 
 module.exports = mongoose.model('Donation', donationSchema);
