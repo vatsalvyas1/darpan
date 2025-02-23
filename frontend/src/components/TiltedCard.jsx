@@ -1,11 +1,4 @@
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-
-const springValues = {
-    damping: 30,
-    stiffness: 100,
-    mass: 2,
-};
+import { useRef, useState, useEffect } from "react";
 
 export default function TiltedCard({
     imageSrc,
@@ -23,22 +16,23 @@ export default function TiltedCard({
     displayOverlayContent = false,
 }) {
     const ref = useRef(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    const rotateX = useSpring(useMotionValue(0), springValues);
-    const rotateY = useSpring(useMotionValue(0), springValues);
-    const scale = useSpring(1, springValues);
-    const opacity = useSpring(0);
-    const rotateFigcaption = useSpring(0, {
-        stiffness: 350,
-        damping: 30,
-        mass: 1,
-    });
+    const figureRef = useRef(null);
+    const [isHovered, setIsHovered] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
-    const [lastY, setLastY] = useState(0);
+    useEffect(() => {
+        if (!isHovered) {
+            if (figureRef.current) {
+                figureRef.current.style.setProperty("--rotate-x", "0deg");
+                figureRef.current.style.setProperty("--rotate-y", "0deg");
+                figureRef.current.style.setProperty("--scale", "1");
+            }
+        }
+    }, [isHovered]);
 
     function handleMouse(e) {
-        if (!ref.current) return;
+        if (!ref.current || !figureRef.current) return;
 
         const rect = ref.current.getBoundingClientRect();
         const offsetX = e.clientX - rect.left - rect.width / 2;
@@ -47,28 +41,22 @@ export default function TiltedCard({
         const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
         const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
 
-        rotateX.set(rotationX);
-        rotateY.set(rotationY);
+        figureRef.current.style.setProperty("--rotate-x", `${rotationX}deg`);
+        figureRef.current.style.setProperty("--rotate-y", `${rotationY}deg`);
+        figureRef.current.style.setProperty("--scale", `${scaleOnHover}`);
 
-        x.set(e.clientX - rect.left);
-        y.set(e.clientY - rect.top);
-
-        const velocityY = offsetY - lastY;
-        rotateFigcaption.set(-velocityY * 0.6);
-        setLastY(offsetY);
+        setTooltipPosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        });
     }
 
     function handleMouseEnter() {
-        scale.set(scaleOnHover);
-        opacity.set(1);
+        setIsHovered(true);
     }
 
     function handleMouseLeave() {
-        opacity.set(0);
-        scale.set(1);
-        rotateX.set(0);
-        rotateY.set(0);
-        rotateFigcaption.set(0);
+        setIsHovered(false);
     }
 
     return (
@@ -89,17 +77,20 @@ export default function TiltedCard({
                 </div>
             )}
 
-            <motion.div
-                className="relative [transform-style:preserve-3d]"
+            <div
+                ref={figureRef}
+                className="relative [transform-style:preserve-3d] transition-transform duration-100 ease-out"
                 style={{
                     width: imageWidth,
                     height: imageHeight,
-                    rotateX,
-                    rotateY,
-                    scale,
+                    transform: `
+                        rotateX(var(--rotate-x, 0deg))
+                        rotateY(var(--rotate-y, 0deg))
+                        scale(var(--scale, 1))
+                    `,
                 }}
             >
-                <motion.img
+                <img
                     src={imageSrc}
                     alt={altText}
                     className="absolute top-0 left-0 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]"
@@ -110,26 +101,22 @@ export default function TiltedCard({
                 />
 
                 {displayOverlayContent && overlayContent && (
-                    <motion.div
-                        className=" absolute top-4 left-0 w-full text-center text-xl font-bold text-white z-[2] will-change-transform [transform:translateZ(30px)]"
-                    >
+                    <div className="absolute top-4 left-0 w-full text-center text-xl font-bold text-white z-[2] will-change-transform [transform:translateZ(30px)]">
                         {overlayContent}
-                    </motion.div>
+                    </div>
                 )}
-            </motion.div>
+            </div>
 
-            {showTooltip && (
-                <motion.figcaption
-                    className="pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white px-[10px] py-[4px] text-[10px] text-[#2d2d2d] opacity-0 z-[3] hidden sm:block"
+            {showTooltip && isHovered && (
+                <div
+                    className="pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white px-[10px] py-[4px] text-[10px] text-[#2d2d2d] z-[3] hidden sm:block transition-opacity duration-200"
                     style={{
-                        x,
-                        y,
-                        opacity,
-                        rotate: rotateFigcaption,
+                        transform: `translate(${tooltipPosition.x}px, ${tooltipPosition.y}px)`,
+                        opacity: isHovered ? 1 : 0,
                     }}
                 >
                     {captionText}
-                </motion.figcaption>
+                </div>
             )}
         </figure>
     );

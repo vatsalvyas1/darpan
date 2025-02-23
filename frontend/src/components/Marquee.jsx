@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import FastMarquee from "react-fast-marquee";
 
 const Marquee = () => {
     const [donations, setDonations] = useState([]);
@@ -12,34 +12,18 @@ const Marquee = () => {
     }, []);
 
     return (
-        <div className="overflow-hidden bg-red-50 py-2">
-            <div className="flex">
-                <motion.div
-                    className="flex whitespace-nowrap gap-6"
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ ease: "linear", repeat: Infinity, duration: 15 }}
-                >
-                    {[...donations, ...donations].map((donation, index) => (
-                        <span key={index} className="flex items-center text-lg font-medium text-gray-900">
-                            {donation.donorName} just donated 
-                            <span className="text-red-500 font-bold ml-1">₹{donation.donationAmount}</span>
-                        </span>
-                    ))}
-                </motion.div>
-
-                <motion.div
-                    className="flex whitespace-nowrap gap-6"
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ ease: "linear", repeat: Infinity, duration: 15 }}
-                >
-                    {[...donations, ...donations].map((donation, index) => (
-                        <span key={index} className="flex items-center text-lg font-medium text-gray-900">
-                            {donation.donorName} just donated 
-                            <span className="text-red-500 font-bold ml-1">₹{donation.donationAmount}</span>
-                        </span>
-                    ))}
-                </motion.div>
-            </div>
+        <div className="bg-red-50 py-2">
+            <FastMarquee
+                speed={50}
+                gradient={false}
+            >
+                {donations.map((donation, index) => (
+                    <span key={index} className="flex items-center text-lg font-medium text-gray-900 mx-3">
+                        {donation.donorName} just donated 
+                        <span className="text-red-500 font-bold ml-1">₹{donation.donationAmount}</span>
+                    </span>
+                ))}
+            </FastMarquee>
         </div>
     );
 };
