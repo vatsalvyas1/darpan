@@ -106,4 +106,15 @@ const getAllDonationForms = async (req, res) => {
   }
 };
 
-module.exports = { submitDonation, getDonationDetails, checkDonorRegistration, getAllDonationForms };
+const getDonationsByDonor = async (req, res) => {
+  try {
+    const { donorId } = req.params;
+    const donations = await DonationForm.find({ donorId }).populate("donationId", "title");
+    res.status(200).json(donations);
+  } catch (error) {
+    console.error("Error fetching donor's donations:", error);
+    res.status(500).json({ message: "Failed to fetch donations" });
+  }
+};
+
+module.exports = { submitDonation, getDonationDetails, checkDonorRegistration, getAllDonationForms, getDonationsByDonor };

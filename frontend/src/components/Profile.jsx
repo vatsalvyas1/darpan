@@ -1,50 +1,56 @@
-import { useEffect, useState } from "react"
-import NgoProfile from "./NgoProfile"
-import VolunteerProfile from "./VolunteerProfile"
-import DonorProfile from "./DonorProfile"
+import { useEffect, useState } from "react";
+import NgoProfile from "./NgoProfile";
+import VolunteerProfile from "./VolunteerProfile";
+import DonorProfile from "./DonorProfile";
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const profileResponse = await fetch("/api/profile", { credentials: "include" })
-        if (!profileResponse.ok) throw new Error("Failed to fetch profile")
+        const profileResponse = await fetch("/api/profile", { credentials: "include" });
+        if (!profileResponse.ok) throw new Error("Failed to fetch profile");
 
-        const profileData = await profileResponse.json()
-        const userId = profileData.user._id
+        const profileData = await profileResponse.json();
+        const userId = profileData.user._id;
 
         if (profileData.user.role === "NGO" && userId.match(/^[0-9a-fA-F]{24}$/)) {
           const [eventsResponse, donationsResponse] = await Promise.all([
-            fetch(`/api/events/ngo/${userId}`),
-            fetch(`/api/donations/ngo/${userId}`),
-          ])
+            fetch(`/api/events/ngo/${userId}`, { credentials: "include" }),
+            fetch(`/api/donations/ngo/${userId}`, { credentials: "include" }),
+          ]);
 
-          const events = eventsResponse.ok ? await eventsResponse.json() : []
-          const donations = donationsResponse.ok ? await donationsResponse.json() : []
+          const events = eventsResponse.ok ? await eventsResponse.json() : [];
+          const donations = donationsResponse.ok ? await donationsResponse.json() : [];
 
-          profileData.ngo = { ...profileData.ngo, events, donations }
+          profileData.ngo = { ...profileData.ngo, events, donations };
+        } else if (profileData.user.role === "Donor" && userId.match(/^[0-9a-fA-F]{24}$/)) {
+          // Fetch donations made by the donor
+          const donorDonationsResponse = await fetch(`/api/donation-form/donor/${userId}`, { credentials: "include" });
+          const donorDonations = donorDonationsResponse.ok ? await donorDonationsResponse.json() : [];
+
+          profileData.donor = { ...profileData.donor, donations: donorDonations };
         }
 
-        setProfile(profileData)
+        setProfile(profileData);
       } catch (err) {
-        console.error("Error fetching profile:", err)
+        console.error("Error fetching profile:", err);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchProfileData()
-  }, [])
+    fetchProfileData();
+  }, []);
 
   if (loading)
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
-    )
+    );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
@@ -61,7 +67,6 @@ const Profile = () => {
                 <div className="h-32 w-32 rounded-full bg-white shadow-xl flex items-center justify-center border-4 border-white overflow-hidden transform transition-transform hover:scale-105">
                   <span className="text-5xl">👤</span>
                 </div>
-                
               </div>
 
               {profile && (
@@ -107,7 +112,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

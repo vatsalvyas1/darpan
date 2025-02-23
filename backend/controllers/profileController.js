@@ -5,6 +5,7 @@ const Donor = require("../models/Donor");
 const Donation = require("../models/Donation");
 const Event = require("../models/Event");
 const mongoose = require("mongoose");
+const DonationForm = require("../models/DonationForm");
 
 exports.getProfile = async (req, res) => {
   try {
@@ -31,7 +32,15 @@ exports.getProfile = async (req, res) => {
       if (volunteerProfile) profileData.volunteer = volunteerProfile;
     } else if (user.role === "Donor") {
       const donorProfile = await Donor.findOne({ userId }).lean();
-      if (donorProfile) profileData.donor = donorProfile;
+      if (donorProfile) {
+        // Fetch donations made by this donor
+        const donationsMade = await DonationForm.find({ donorId: userId })
+          .populate("donationId", "title images organizedBy")
+          .lean();
+        
+        donorProfile.donationsMade = donationsMade; 
+        profileData.donor = donorProfile;
+      }
     }
 
     res.json(profileData);

@@ -1,5 +1,5 @@
 const express = require("express");
-const { submitDonation, getDonationDetails, checkDonorRegistration, getAllDonationForms } = require("../controllers/donationFormController");
+const { submitDonation, getDonationDetails, checkDonorRegistration, getAllDonationForms, getDonationsByDonor } = require("../controllers/donationFormController");
 const { ensureAuthenticated } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
@@ -18,6 +18,9 @@ router.post("/:donationId", ensureAuthenticated, submitDonation);
 
 // Route for checking if donor is already registered
 router.get("/check-registration/:donationId/:donorId", ensureAuthenticated, checkDonorRegistration);
+
+router.get("/donor/:donorId", ensureAuthenticated, getDonationsByDonor);
+
 
 
 module.exports = router;
