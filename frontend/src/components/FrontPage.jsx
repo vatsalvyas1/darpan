@@ -4,6 +4,8 @@ import Card from "./ExploreFundraise";
 import DonationList from "./DonationList";
 import Marquee from "./Marquee";
 import EventList from "./EventList";  
+import TestimonialSection from "./TestimonialSection";
+
 
 const FrontPage = () => {
   const [donations, setDonations] = useState([]);
@@ -80,6 +82,8 @@ const FrontPage = () => {
       <section className="my-8">
         <Card />
       </section>
+      {/* testimonial section */}
+      <div className="min-h-screen"> <TestimonialSection/> </div>
     </div>
   );
 };

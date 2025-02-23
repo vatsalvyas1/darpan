@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserCheck, Calendar, Phone, User, BookOpen, Lightbulb } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+
 
 const EventForm = () => {
+  const navigate = useNavigate();
   const { id: eventId } = useParams();
   const [formData, setFormData] = useState({
     name: "",
