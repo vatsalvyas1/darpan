@@ -1,6 +1,8 @@
+import { backendUrl } from "../constant";
+
 export const postData = async (url, data) => {
   try {
-    const response = await fetch(`http://localhost:5000${url}`, {
+    const response = await fetch(`${backendUrl}${url}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
