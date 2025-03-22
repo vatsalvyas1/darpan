@@ -3,7 +3,6 @@ const passport = require("passport");
 const { setUserRole } = require("../controllers/authController");
 const { ensureAuthenticated } = require("../middlewares/authMiddleware");
 const User = require("../models/User");
-
 const router = express.Router();
 
 // Google OAuth login
