@@ -3,7 +3,9 @@ import { backendUrl } from "../constant";
 
 const Login = () => {
   useEffect(() => {
-    window.location.href = `${backendUrl}/auth/google/callback`; 
+    const redirectUrl = `${backendUrl}/auth/google`;
+    console.log("Redirecting to:", redirectUrl); // Debugging
+    window.location.href = redirectUrl;
   }, []);
 
   return (
