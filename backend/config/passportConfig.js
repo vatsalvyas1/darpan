@@ -1,8 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
-const { backendUrl } = require("../../frontend/src/constant");
-
+const backendUrl = process.env.BACKEND_URL || "http://localhost:5000";
 passport.use(
   new GoogleStrategy(
     {
