@@ -43,7 +43,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://the-darpan.vercel.app"
+  "https://the-darpan.vercel.app",
+  "https://darpan-backend-fkmc.onrender.com",
+  "http://localhost:5000",
 ];
 
 app.use(cors({
