@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../constant";
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ const Logout = () => {
   useEffect(() => {
     const logoutUser = async () => {
       try {
-        const response = await fetch("http://localhost:5000/logout", {
+        const response = await fetch(`${backendUrl}/logout`, {
           method: "GET",
           credentials: "include", // Include cookies for logout
         });

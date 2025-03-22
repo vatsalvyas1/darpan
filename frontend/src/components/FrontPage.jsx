@@ -5,6 +5,7 @@ import DonationList from "./DonationList";
 import Marquee from "./Marquee";
 import EventList from "./EventList";  
 import TestimonialSection from "./TestimonialSection";
+import { backendUrl } from "../constant";
 
 
 const FrontPage = () => {
@@ -17,7 +18,7 @@ const FrontPage = () => {
     // Fetch Donations
     const fetchDonations = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/donations", {
+        const response = await fetch(`${backendUrl}/api/donations`, {
           credentials: "include",
         });
         if (!response.ok) throw new Error("Failed to fetch donations");
@@ -33,7 +34,7 @@ const FrontPage = () => {
     // Fetch Events
     const fetchEvents = async () => {
       try {
-        const response = await fetch("/api/events");
+        const response = await fetch(`${backendUrl}/api/events`);
         if (!response.ok) throw new Error("Failed to fetch events");
         const data = await response.json();
         setEvents(data);

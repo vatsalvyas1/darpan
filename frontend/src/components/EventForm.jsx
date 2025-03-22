@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserCheck, Calendar, Phone, User, BookOpen, Lightbulb } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../constant";
 
 
 const EventForm = () => {
@@ -20,7 +21,7 @@ const EventForm = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/me", {
+        const response = await fetch(`${backendUrl}/me`, {
           credentials: "include",
         });
         const data = await response.json();
@@ -52,7 +53,7 @@ const EventForm = () => {
       return;
     }
 
-    const response = await fetch(`http://localhost:5000/api/event-form`, {
+    const response = await fetch(`${backendUrl}/api/event-form`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

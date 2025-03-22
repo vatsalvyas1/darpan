@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Heart, Users, Video, Image, Wallet, Building, CreditCard, QrCode } from 'lucide-react';
 import DonationCard from "./DonationCard";
+import { backendUrl } from "../constant";
 
 const CreateDonation = () => {
   const [formData, setFormData] = useState({
@@ -97,7 +98,7 @@ const CreateDonation = () => {
     };
   
     try {
-      const response = await fetch("/api/donations", {
+      const response = await fetch(`${backendUrl}/api/donations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(donationData),

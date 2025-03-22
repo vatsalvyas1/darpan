@@ -1,8 +1,9 @@
 import { useEffect } from "react";
+import { backendUrl } from "../constant";
 
 const Login = () => {
   useEffect(() => {
-    window.location.href = "http://localhost:5000/auth/google/"; 
+    window.location.href = `${backendUrl}/auth/google/`; 
   }, []);
 
   return (

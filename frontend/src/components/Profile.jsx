@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import NgoProfile from "./NgoProfile";
 import VolunteerProfile from "./VolunteerProfile";
 import DonorProfile from "./DonorProfile";
+import { backendUrl } from "../constant";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -10,7 +11,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const profileResponse = await fetch("/api/profile", { credentials: "include" });
+        const profileResponse = await fetch(`${backendUrl}/api/profile`, { credentials: "include" });
         if (!profileResponse.ok) throw new Error("Failed to fetch profile");
 
         const profileData = await profileResponse.json();

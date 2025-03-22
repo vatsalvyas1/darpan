@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { MapPin, ExternalLink, MessageCircle } from 'lucide-react';
+import { backendUrl } from "../constant";
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`/api/events/${id}`);
+        const response = await fetch(`${backendUrl}/api/events/${id}`);
         if (!response.ok) throw new Error("Event not found");
         const data = await response.json();
         setEvent(data);
@@ -28,13 +29,13 @@ const EventDetails = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch("/api/profile", { credentials: "include" });
+        const response = await fetch(`${backendUrl}/api/profile`, { credentials: "include" });
         if (!response.ok) throw new Error("User not logged in");
         const data = await response.json();
         setUser(data);
 
         if (data.role === "Volunteer") {
-          const checkResponse = await fetch(`http://localhost:5000/api/event-form/check-registration/${id}/${data.user._id}`, {
+          const checkResponse = await fetch(`${backendUrl}/api/event-form/check-registration/${id}/${data.user._id}`, {
             credentials: "include",
           });
 

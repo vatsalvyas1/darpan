@@ -25,13 +25,13 @@ router.get(
       // Redirect based on role
       switch (req.user.role) {
         case "NGO":
-          return res.redirect("http://localhost:5173/");
+          return res.redirect(`${process.env.FRONTEND_URL}`);
         case "Volunteer":
-          return res.redirect("http://localhost:5173/");
+          return res.redirect(`${process.env.FRONTEND_URL}`);
         case "Donor":
-          return res.redirect("http://localhost:5173/");
+          return res.redirect(`${process.env.FRONTEND_URL}`);
         default:
-          return res.redirect("http://localhost:5173/");
+          return res.redirect(`${process.env.FRONTEND_URL}`);
       }
     } catch (err) {
       console.error("Error during login callback:", err);
@@ -82,13 +82,13 @@ router.post("/select-role", ensureAuthenticated, async (req, res) => {
     // Redirect to role-specific setup page
     switch (role) {
       case "NGO":
-        return res.redirect("http://localhost:5173/ngo/setup");
+        return res.redirect(`${process.env.FRONTEND_URL}/ngo/setup`);
       case "Volunteer":
-        return res.redirect("http://localhost:5173/volunteer/setup");
+        return res.redirect(`${process.env.FRONTEND_URL}/volunteer/setup`);
       case "Donor":
-        return res.redirect("http://localhost:5173/donor/setup");
+        return res.redirect(`${process.env.FRONTEND_URL}/donor/setup`);
       default:
-        return res.redirect("http://localhost:5173/dashboard");
+        return res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
     }
   } catch (err) {
     console.error("Error setting user role:", err);

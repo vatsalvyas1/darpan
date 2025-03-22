@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import FastMarquee from "react-fast-marquee";
+import { backendUrl } from "../constant";
 
 const Marquee = () => {
     const [donations, setDonations] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/donation-form") 
+        fetch(`${backendUrl}/api/donation-form`) 
             .then(response => response.json())
             .then(data => setDonations(data))
             .catch(error => console.error("Error fetching donation forms:", error));

@@ -10,6 +10,7 @@ import {
   Shield,
   ChevronRight
 } from "lucide-react";
+import { backendUrl } from "../constant";
 
 const DonationDetails = () => {
   const { id } = useParams();
@@ -32,7 +33,7 @@ const DonationDetails = () => {
   // Fetch donation details
   const fetchDonation = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/donations/${id}`);
+      const response = await fetch(`${backendUrl}/api/donations/${id}`);
       if (!response.ok) throw new Error("Donation not found");
       const data = await response.json();
       setDonation(data);
@@ -47,14 +48,14 @@ const DonationDetails = () => {
   // Fetch user details and check donation status
   const fetchUser = async () => {
     try {
-      const response = await fetch("/api/profile", { credentials: "include" });
+      const response = await fetch(`${backendUrl}/api/profile`, { credentials: "include" });
       if (!response.ok) throw new Error("User not logged in");
       const data = await response.json();
       setUser(data);
 
       if (data.role === "Donor") {
         const checkResponse = await fetch(
-          `http://localhost:5000/api/donation-form/check-registration/${id}/${data.user._id}`,
+          `${backendUrl}/api/donation-form/check-registration/${id}/${data.user._id}`,
           { credentials: "include" }
         );
         if (checkResponse.ok) {

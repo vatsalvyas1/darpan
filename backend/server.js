@@ -22,6 +22,7 @@ const profileRoutes = require("./routes/profileRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const eventFormRoutes = require("./routes/eventFormRoutes");
 const donationFormRoutes = require("./routes/donationFormRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 // Middleware
 const { upload } = require("./middlewares/multerMiddleware");
@@ -38,13 +39,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS Configuration
-app.use(
-  cors({
-    origin: "http://localhost:5173", 
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://the-darpan.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+      } else {
+          callback(new Error("Not allowed by CORS"));
+      }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 
 // Session Configuration
 app.use(
@@ -57,7 +70,7 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      secure: false, 
+      secure: false,
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
@@ -89,12 +102,13 @@ app.get("/check-auth", (req, res) => {
 app.use(require("./routes/authRoutes"));
 app.use("/ngos", ngoRoutes);
 app.use("/api/volunteers", volunteerRoutes);
-app.use("/api/donors", donorRoutes); 
+app.use("/api/donors", donorRoutes);
 app.use("/api/donations", donationRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/event-form", eventFormRoutes);
 app.use("/api/donation-form", donationFormRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/payment", paymentRoutes);
 
 // ✅ **NGO, Volunteer, Donor Setup Routes**
 app.post("/api/ngos/setup", setupNgo);
