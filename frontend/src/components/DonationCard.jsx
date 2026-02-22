@@ -16,7 +16,7 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
   };
 
   return (
-    <div 
+    <div
       className="w-[400px] h-[500px] p-4 perspective-1000"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -28,11 +28,10 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
           {images?.length > 0 ? (
             <img
-              src={images[0]} 
+              src={images[0]}
               alt={title}
-              className={`w-full h-full object-cover transition-all duration-700 ${
-                isHovered ? 'scale-110 brightness-110' : 'scale-100'
-              }`}
+              className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-110 brightness-110' : 'scale-100'
+                }`}
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -44,7 +43,7 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
           <div className="absolute top-4 left-4 z-20 transition-transform duration-300 group-hover:translate-y-1">
             <div className="relative">
               <div className="absolute inset-0 bg-orange-500/20 blur-md rounded-full" />
-              <span className="relative bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-1.5 rounded-full text-sm font-medium text-white shadow-lg">
+              <span className="relative bg-gradient-to-r from-[#fdf2e2] to-[#fdf2e2] px-4 py-1.5 rounded-full text-sm font-medium text-[#d97613] shadow-lg">
                 Tax Benefits
               </span>
             </div>
@@ -52,9 +51,9 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
 
           {/* Title and Organizer */}
           <div className="absolute bottom-0 left-0 right-0 p-6 z-20 transform transition-transform duration-300 group-hover:translate-y-[-4px]">
-            <p className="text-orange-300 text-sm font-medium mb-2 flex items-center gap-2">
-              <Users size={14} className="animate-pulse" />
-              {organizedBy}
+            <p className="text-white  text-m font-medium  flex items-center font-serif font-style: italic gap-2">
+              
+              Mission
             </p>
             <h2 className="text-2xl font-bold text-white leading-tight">{title}</h2>
           </div>
@@ -69,19 +68,19 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
                 {/* Animated Progress Ring */}
                 <div className="relative h-14 w-14 transform transition-transform duration-300 group-hover:scale-110">
                   <svg className="w-full h-full transform -rotate-90">
-                    <circle 
-                      cx="28" 
-                      cy="28" 
-                      r="24" 
-                      className="stroke-gray-200" 
-                      strokeWidth="6" 
-                      fill="none" 
+                    <circle
+                      cx="28"
+                      cy="28"
+                      r="24"
+                      className="stroke-gray-200"
+                      strokeWidth="6"
+                      fill="none"
                     />
                     <circle
                       cx="28"
                       cy="28"
                       r="24"
-                      className="stroke-rose-500 transition-all duration-1000 ease-out"
+                      className="stroke-[#FCAF17] transition-all duration-1000 ease-out"
                       strokeWidth="6"
                       fill="none"
                       strokeDasharray="150.8"
@@ -90,7 +89,7 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
                     />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-sm font-bold bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent">
+                    <span className="text-sm font-bold bg-gradient-to-r text-black bg-clip-text ">
                       {progressPercentage}%
                     </span>
                   </div>
@@ -99,7 +98,7 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
                 {/* Amount Details */}
                 <div className="space-y-1">
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-lg font-bold bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent">
+                    <span className="text-lg font-bold bg-gradient-to-r from-[#e7424b] to-[#e7424b] bg-clip-text text-transparent">
                       {formatCurrency(amountRaised)}
                     </span>
                     <span className="text-gray-500 text-sm">raised of</span>
@@ -108,7 +107,7 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5 text-gray-500">
-                    <Heart size={14} className="text-rose-400" />
+                    <img src="https://cfstatic.give.do/cfb41077-269b-4376-a68a-aa45355843fd.webp" alt="donation" className="w-5" />
                     <span className="text-sm">{numberOfDonors} generous donors</span>
                   </div>
                 </div>
@@ -117,27 +116,27 @@ const DonationCard = ({ _id, title, organizedBy, images, amountRaised, donationG
 
             {/* Progress Bar */}
             <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-rose-500 to-orange-500 transition-all duration-300 ease-out rounded-full"
+              <div
+                className="h-full bg-gradient-to-r from-[#FCAF17] to-[#FCAF17] transition-all duration-300 ease-out rounded-full"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
           </div>
 
           {/* Donate Button */}
-          <Link 
+          <Link
             to={`/donation/${_id}`}
             className="block group/btn"
           >
-            <button className="relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 p-px font-medium text-white transition-all duration-300 hover:shadow-[0_8px_16px_rgba(251,113,133,0.4)]">
-              <div className="relative bg-white px-6 py-3 rounded-[11px] transition-all duration-300 group-hover/btn:bg-transparent">
+            <button className="cursor-pointer relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-[#e7424b] to-[#e7424b] p-px font-medium text-white transition-all duration-300 hover:shadow-[0_8px_16px_rgba(251,113,133,0.4)]">
+              <div className="relative bg-[#e7424b] px-6 py-3 rounded-[11px] transition-all duration-300 group-hover/btn:bg-transparent">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent transition-all duration-300 group-hover/btn:text-white">
+                  <span className="bg-gradient-to-r text-white bg-clip-text  transition-all duration-300 group-hover/btn:text-white">
                     Donate Now
                   </span>
-                  <ArrowRight 
-                    size={16} 
-                    className="text-rose-500 transition-all duration-300 group-hover/btn:text-white group-hover/btn:translate-x-1" 
+                  <ArrowRight
+                    size={16}
+                    className="text-white transition-all duration-300 group-hover/btn:text-white group-hover/btn:translate-x-1"
                   />
                 </div>
               </div>
