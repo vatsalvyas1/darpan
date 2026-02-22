@@ -1,2 +1,2 @@
-const backendUrl = 'https://darpan-backend-fkmc.onrender.com';
+const backendUrl = import.meta.env.VITE_API_URL;
 export { backendUrl };
