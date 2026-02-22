@@ -4,6 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { backendUrl } from "../constant";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -18,7 +19,7 @@ export default function Navbar() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("http://localhost:5000/check-auth", {
+        const response = await fetch(`${backendUrl}/check-auth`, {
           method: "GET",
           credentials: "include",
         });
@@ -44,7 +45,7 @@ export default function Navbar() {
   // Handle logout
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch(`${backendUrl}/logout`, {
         method: "GET",
         credentials: "include",
       });

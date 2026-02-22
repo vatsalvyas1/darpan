@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postData } from "../utils/api";
+import { backendUrl } from "../constant";
 
 const NgoSetup = () => {
   const [name, setName] = useState("");
@@ -17,7 +18,7 @@ const NgoSetup = () => {
 
   const handleNgoSetup = async (e) => {
     e.preventDefault();
-    const response = await postData("/api/ngos/setup", {
+    const response = await postData(`${backendUrl}/api/ngos/setup`, {
       name,
       registrationNumber,
       address,

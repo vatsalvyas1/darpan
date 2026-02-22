@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Calendar, MapPin, Globe, Users, Image, LogIn as WhatsappLogo } from 'lucide-react';
+import { backendUrl } from "../constant";
 
 const CreateEvent = () => {
   const [formData, setFormData] = useState({
@@ -99,7 +100,7 @@ const CreateEvent = () => {
     };
   
     try {
-      const response = await fetch("/api/events", {
+      const response = await fetch(`${backendUrl}/api/events`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(eventData),

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Heart, CreditCard, AlertCircle, Sparkles, ArrowRight } from "lucide-react";
+import { backendUrl } from "../constant";
 
 function DonationForm() {
   const { id: donationId } = useParams();
@@ -26,7 +27,7 @@ function DonationForm() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:5000/me", {
+        const response = await fetch(`${backendUrl}/me`, {
           credentials: "include",
         });
         const data = await response.json();
@@ -85,7 +86,7 @@ function DonationForm() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/donation-form/${donationId}`, {
+      const response = await fetch(`${backendUrl}/api/donation-form/${donationId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

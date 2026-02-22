@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postData } from "../utils/api";
+import { backendUrl } from "../constant";
 
 const DonorSetup = () => {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ const DonorSetup = () => {
 
   const handleDonorSetup = async (e) => {
     e.preventDefault();
-    const response = await postData("/api/donors/setup", {
+    const response = await postData(`${backendUrl}/api/donors/setup`, {
       name,
       preferredCauses: preferredCauses.split(",").map((cause) => cause.trim()),
     });

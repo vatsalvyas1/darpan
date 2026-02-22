@@ -1,8 +1,11 @@
 import { useEffect } from "react";
+import { backendUrl } from "../constant";
 
 const Login = () => {
   useEffect(() => {
-    window.location.href = "http://localhost:5000/auth/google/"; 
+    const redirectUrl = `${backendUrl}/auth/google`;
+    console.log("Redirecting to:", redirectUrl); // Debugging
+    window.location.href = redirectUrl;
   }, []);
 
   return (
