@@ -33,30 +33,28 @@ connectDB();
 require("./config/passportConfig");
 
 const app = express();
+app.set("trust proxy", 1); // Trust first proxy for secure cookies
 
 // Middleware for parsing JSON & form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS Configuration
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://the-darpan.vercel.app",
-  "https://darpan-backend-fkmc.onrender.com",
+  "https://darpan-backend-ok8w.onrender.com",
   "http://localhost:5000",
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-          callback(null, true);
-      } else {
-          callback(new Error("Not allowed by CORS"));
-      }
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
   },
-  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
@@ -72,9 +70,10 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 1000 * 60 * 60 * 24,
     },
   })
 );
@@ -101,7 +100,7 @@ app.get("/check-auth", (req, res) => {
 });
 
 // All Routes
-app.use(require("./routes/authRoutes"));
+app.use("/auth", authRoutes);
 app.use("/ngos", ngoRoutes);
 app.use("/api/volunteers", volunteerRoutes);
 app.use("/api/donors", donorRoutes);

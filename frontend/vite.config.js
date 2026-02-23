@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/api': 'https://darpan-backend-fkmc.onrender.com'
+      '/api': 'https://darpan-backend-ok8w.onrender.com'
     },
   },
 });
