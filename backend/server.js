@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://the-darpan.vercel.app",
+  "https://darpan-ebon.vercel.app",
   "https://darpan-backend-ok8w.onrender.com",
   "http://localhost:5000",
 ];
