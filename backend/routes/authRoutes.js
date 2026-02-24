@@ -15,7 +15,7 @@ router.get(
   async (req, res) => {
     try {
       if (req.user && req.user.firstLogin) {
-        return res.redirect("/select-role");
+        return res.redirect("/auth/select-role");
       }
 
       // Store user ID in session
@@ -57,7 +57,7 @@ router.get("/me", ensureAuthenticated, async (req, res) => {
 router.get("/select-role", ensureAuthenticated, (req, res) => {
   res.send(`
     <h1>Select Your Role</h1>
-    <form action="/select-role" method="POST">
+   <form action="/auth/select-role" method="POST">
       <button type="submit" name="role" value="NGO">NGO</button>
       <button type="submit" name="role" value="Volunteer">Volunteer</button>
       <button type="submit" name="role" value="Donor">Donor</button>
