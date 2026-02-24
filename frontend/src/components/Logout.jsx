@@ -8,7 +8,7 @@ const Logout = () => {
   useEffect(() => {
     const logoutUser = async () => {
       try {
-        const response = await fetch(`${backendUrl}/logout`, {
+        const response = await fetch(`${backendUrl}/auth/logout`, {
           method: "GET",
           credentials: "include", // Include cookies for logout
         });
